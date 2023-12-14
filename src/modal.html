@@ -4,30 +4,19 @@
     description="Select which steps should be done"
   >
     <div>
-      <el-checkbox v-model="state.findqr" disabled
-        >Find QR code and extract size</el-checkbox
-      >
+      <el-select v-model="modalState.selectOption" placeholder="Select Option">
+        <el-option key="option1" label="Group by Image Tags" value="option1"></el-option>
+        <el-option key="option2" label="Group by Object" value="option2"></el-option>
+      </el-select>
     </div>
+
     <div>
-      <el-checkbox v-model="state.ptr"
-        >Apply perspective transformation to images</el-checkbox
+      <sly-field
+        title="Batch size"
+        description="Select the batch size for grouping images"
       >
+      <el-slider v-model="modalState.sliderValue" :min="0" :max="100" :step="1"></el-slider>
     </div>
   </sly-field>
-  <div v-if="state.ptr === false">
-    <sly-field title="Results" description="Select where the results should be saved">
-      <el-select v-model="state.outputMode" placeholder="Select">
-        <el-option
-          key="in-place"
-          label="update existing project in-place"
-          value="in-place"
-        ></el-option>
-        <el-option
-          key="new-project"
-          label="create new project"
-          value="new-project"
-        ></el-option>
-      </el-select>
-    </sly-field>
   </div>
 </div>

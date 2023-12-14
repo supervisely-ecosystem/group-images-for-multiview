@@ -1,7 +1,3 @@
-# used to print cool text to stdout
-art==5.7 
-
-# my favorite code formatter
 black==22.6.0 
 
 python-dotenv
