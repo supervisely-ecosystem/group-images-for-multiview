@@ -1,32 +1,26 @@
 {
     "release": {
-        "version": "v1.0.33",
-        "name": "perspective-qr"
+        "version": "v0.0.1",
+        "name": "group-images-multiview"
     },
-    "slug": "gera/perspective-transform-using-qr-code",
+    "slug": "german/group-images-multiview",
     "main_script": "src/main.py",
     "modal_template": "src/modal.html",
     "docker_image": "supervisely/data-operations:0.0.5",
     "modal_template_state": {
-        "findqr": true,
-        "ptr": true,
-        "outputMode": "in-place"
+        "sliderValue": 1,
+        "selectOption": "tags"
     },
     "headless": true,
-    "name": "Perspective transform using QR code",
-    "description": "This app perspective transforms and warps your images using qr code in them.",
+    "name": "Group Images for Multiview",
+    "description": "This app splits images into groups for multiview",
     "categories": [
-        "images",
-        "data transformation",
-        "data operations"
+        "images"
     ],
     "context_menu": {
         "context_category": "Transform",
         "target": [
             "images_project"
         ]
-    },
-    "icon": "https://user-images.githubusercontent.com/115161827/207945000-f88c05db-43a6-4c1f-8944-fdb15bead7a0.png",
-    "icon_cover": true,
-    "poster": "https://user-images.githubusercontent.com/115161827/208094131-d3ab5fcf-3da3-476b-bd50-e563deaf9b72.jpg?v=2"
+    }
 }
