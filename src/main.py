@@ -14,7 +14,6 @@ batch_size = int(os.environ["modal.state.sliderValue"])
 tag_name = "group id"
 
 
-@sly.handle_exceptions
 def main():
     api = sly.Api.from_env()
     project_id = sly.env.project_id()
