@@ -25,7 +25,7 @@ def main():
     meta = sly.ProjectMeta.from_json(api.project.get_meta(project_id))
     tag_meta = meta.get_tag_meta(tag_name)
     if tag_meta is None:
-        tag_meta = sly.TagMeta(name=tag_name, value_type=sly.TagValueType.ANY_STRING)  # to adress
+        tag_meta = sly.TagMeta(name=tag_name, value_type=sly.TagValueType.ANY_STRING)  # to address
         meta = meta.add_tag_meta(tag_meta)
         api.project.update_meta(project_id, meta)
 
@@ -52,7 +52,7 @@ def main():
                 value = value + 1
 
             if grouping_type == "tags":
-                tag = sly.Tag(tag_meta, str(value))
+                tag = sly.Tag(tag_meta, "group_{}".format(value))
                 ann = ann.add_tag(tag=tag)
                 ann_list.append(ann)
             else:
