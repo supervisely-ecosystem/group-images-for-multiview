@@ -4,7 +4,7 @@
     description="Select which steps should be done"
   >
     <div>
-      <el-select v-model="modalState.selectOption" placeholder="Select Option">
+      <el-select v-model="state.selectOption" placeholder="Select Option">
         <el-option key="tags" label="Group by Image Tags" value="tags"></el-option>
         <el-option key="obj" label="Group by Object of Class" value="obj"></el-option>
       </el-select>
@@ -15,7 +15,7 @@
         title="Batch size"
         description="Select the batch size for grouping images"
       >
-      <el-slider v-model="modalState.sliderValue" :min="0" :max="100" :step="1"></el-slider>
+      <el-slider v-model="state.sliderValue" :min="0" :max="100" :step="1"></el-slider>
     </div>
   </sly-field>
   </div>
