@@ -45,39 +45,40 @@ def main():
         # Download all image annotations
         anns_json = api.annotation.download_json_batch(dataset_id=dataset.id, image_ids=image_ids)
         anns = [sly.Annotation.from_json(ann_json, meta) for ann_json in anns_json]
-        if grouping_type == "tags":
-            ann_list = []
-            # Iterate over annotations, and add a tag to each image  with their group id
-            value = 0
-            for i, ann in enumerate(anns):
-                if i % batch_size == 0:
-                    value = value + 1
+        ann_list = []
+        # Iterate over annotations, and add a tag to each image  with their group id
+        value = 0
+        for i, ann in enumerate(anns):
+            if i % batch_size == 0:
+                value = value + 1
+
+            if grouping_type == "tags":
                 tag = sly.Tag(tag_meta, str(value))
                 ann = ann.add_tag(tag=tag)
                 ann_list.append(ann)
-            # Upload the updated annotations
-            api.annotation.upload_anns(image_ids, ann_list)
-        else:
-            grouping_dict = {}  # todo tag batching: zebra1, zebra2, zebra3
-            group_value = 0
-            for i, ann in enumerate(anns):
-                img_info = api.image.get_info_by_id(ann.image_id)
-                if i % batch_size == 0:
-                    group_value = group_value + 1
+            else:
                 for label in ann.labels:
                     label: sly.Label
                     obj_class_name = label.obj_class.name
 
-                    group_name = obj_class_name + "_{}".format(group_value)
+                    group_name = obj_class_name + "_{}".format(value)
                     tag = sly.Tag(tag_meta, group_name)
                     ann = ann.add_tag(tag=tag)
-                    if group_name in grouping_dict:
-                        grouping_dict[group_name].append(tuple(img_info, ann))
-                    else:
-                        grouping_dict[group_name] = [tuple(img_info, ann)]
-            for k, v in grouping_dict.items():
-                info, a = v
-                api.annotation.upload_ann(info.id, a)
+                ann_list.append(ann)
+        # Upload the updated annotations
+        api.annotation.upload_anns(image_ids, ann_list)
+
+        # else:
+        #     grouping_dict = {}  # todo tag batching: zebra1, zebra2, zebra3
+        #     group_value = 0
+
+        #             if group_name in grouping_dict:
+        #                 grouping_dict[group_name].append(tuple(img_info, ann))
+        #             else:
+        #                 grouping_dict[group_name] = [tuple(img_info, ann)]
+        #     for k, v in grouping_dict.items():
+        #         info, a = v
+        #         api.annotation.upload_ann(info.id, a)
 
 
 if __name__ == "__main__":
