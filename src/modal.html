@@ -5,8 +5,9 @@
   >
     <div>
       <el-select v-model="state.selectOption" placeholder="Select Option">
+        <el-option key="by-batches" label="Group by Batches" value="by-batches"></el-option>
         <el-option key="tags" label="Group by Image Tags" value="tags"></el-option>
-        <el-option key="obj" label="Group by Object of Class" value="obj"></el-option>
+        <el-option key="obj-class" label="Group by Class" value="obj-class"></el-option>
       </el-select>
     </div>
 
@@ -15,7 +16,7 @@
         title="Batch size"
         description="Select the batch size for grouping images"
       >
-      <el-slider v-model="state.sliderValue" :min="0" :max="100" :step="1"></el-slider>
+      <el-slider v-model="state.sliderValue" :min="0" :max="20" :step="1"></el-slider>
     </div>
   </sly-field>
   </div>

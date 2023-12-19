@@ -1,26 +1,20 @@
 {
-    "release": {
-        "version": "v0.0.1",
-        "name": "group-images-multiview"
-    },
-    "slug": "german/group-images-multiview",
-    "main_script": "src/main.py",
-    "modal_template": "src/modal.html",
-    "docker_image": "supervisely/data-operations:0.0.5",
-    "modal_template_state": {
-        "sliderValue": 1,
-        "selectOption": "tags"
-    },
-    "headless": true,
     "name": "Group Images for Multiview",
-    "description": "This app splits images into groups for multiview",
-    "categories": [
-        "images"
-    ],
+    "type": "app",
+    "version": "2.0.0",
+    "description": "",
+    "icon": "",
+    "icon_cover": true,
+    "poster": "",
+    "categories": ["images"],
+    "need_gpu": false,
+    "community_agent": true,
+    "docker_image": "supervisely/base-py-sdk:6.72.219",
+    "entrypoint": "python src/main.py",
+    "port": 8000,
+    "headless": true,
+    "task_location": "workspace_tasks",
     "context_menu": {
-        "context_category": "Transform",
-        "target": [
-            "images_project"
-        ]
+      "target": ["images_project", "images_dataset"]
     }
-}
+  }
