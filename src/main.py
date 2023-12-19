@@ -25,7 +25,8 @@ def main():
     meta = sly.ProjectMeta.from_json(api.project.get_meta(project_id))
     tag_meta = meta.get_tag_meta(tag_name)
     if tag_meta is not None:
-        meta.delete_tag_meta(tag_name)
+        meta = meta.delete_tag_meta(tag_name)
+        api.project.update_meta(project_id, meta)
     tag_meta = sly.TagMeta(name=tag_name, value_type=sly.TagValueType.ANY_STRING)
     meta = meta.add_tag_meta(tag_meta)
     api.project.update_meta(project_id, meta)
