@@ -24,10 +24,11 @@ def main():
     # Add tag meta
     meta = sly.ProjectMeta.from_json(api.project.get_meta(project_id))
     tag_meta = meta.get_tag_meta(tag_name)
-    if tag_meta is None:
-        tag_meta = sly.TagMeta(name=tag_name, value_type=sly.TagValueType.ANY_STRING)  # to address
-        meta = meta.add_tag_meta(tag_meta)
-        api.project.update_meta(project_id, meta)
+    if tag_meta is not None:
+        meta.delete_tag_meta(tag_name)
+    tag_meta = sly.TagMeta(name=tag_name, value_type=sly.TagValueType.ANY_STRING)
+    meta = meta.add_tag_meta(tag_meta)
+    api.project.update_meta(project_id, meta)
 
     # Enable multi-tag mode and grouping
     api.project.update_settings(project_id, settings={"allowDuplicateTags": True})
@@ -56,28 +57,19 @@ def main():
                 ann = ann.add_tag(tag=tag)
                 ann_list.append(ann)
             else:
+                objs_names_list = []
                 for label in ann.labels:
                     label: sly.Label
                     obj_class_name = label.obj_class.name
-
-                    group_name = obj_class_name + "_{}".format(value)
-                    tag = sly.Tag(tag_meta, group_name)
+                    objs_names_list.appned(obj_class_name)
+                # Remove duplicates from list
+                tag_values = list(dict.fromkeys(objs_names_list).keys())
+                for name in tag_values:
+                    tag = sly.Tag(tag_meta, name + "_{}".format(value))
                     ann = ann.add_tag(tag=tag)
                 ann_list.append(ann)
         # Upload the updated annotations
-        api.annotation.upload_anns(image_ids, ann_list)
-
-        # else:
-        #     grouping_dict = {}  # todo tag batching: zebra1, zebra2, zebra3
-        #     group_value = 0
-
-        #             if group_name in grouping_dict:
-        #                 grouping_dict[group_name].append(tuple(img_info, ann))
-        #             else:
-        #                 grouping_dict[group_name] = [tuple(img_info, ann)]
-        #     for k, v in grouping_dict.items():
-        #         info, a = v
-        #         api.annotation.upload_ann(info.id, a)
+        api.annotation.upload_anns(image_ids, ann_list)  # todo address duplicate images and id
 
 
 if __name__ == "__main__":
