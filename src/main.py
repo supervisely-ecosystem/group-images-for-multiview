@@ -62,7 +62,7 @@ def main():
                 for label in ann.labels:
                     label: sly.Label
                     obj_class_name = label.obj_class.name
-                    objs_names_list.appned(obj_class_name)
+                    objs_names_list.append(obj_class_name)
                 # Remove duplicates from list
                 tag_values = list(dict.fromkeys(objs_names_list).keys())
                 for name in tag_values:
