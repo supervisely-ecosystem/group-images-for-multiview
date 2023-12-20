@@ -35,9 +35,9 @@ Before running the app, be aware that this app changes the project it is applied
 
 2. Right click to the project/dataset and run app from context menu
 
-<img src="https://github.com/supervisely-ecosystem/group-images-for-multiview/assets/115161827/1aba327a-824f-453b-8d95-859673200469" width = 80%>
+<img src="https://github.com/supervisely-ecosystem/group-images-for-multiview/assets/115161827/1bebd688-5638-4975-bdb4-9cd44c183327">
 
 3. Select the grouping type, batch size and run the app.
 
-<img src="https://github.com/supervisely-ecosystem/group-images-for-multiview/assets/115161827/01a91f2c-f2fa-4d9a-b165-fd010bd2cbe2" width = 80%>
+<img src="https://github.com/supervisely-ecosystem/group-images-for-multiview/assets/115161827/beea032a-3d84-4c35-83e3-707ce614dbcc">
 
