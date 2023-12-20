@@ -34,13 +34,13 @@ def get_grouped_dict(
     return grouped_dict
 
 
-def get_free_tag_name(original_string, name):
-    if original_string == name:
+def get_free_tag_name(original_string, list):
+    if original_string in list:
         counter = 1
-        new_string = f"{name}_{counter}"
-        while new_string == original_string:
+        new_string = f"{original_string}_{counter}"
+        while new_string in list:
             counter += 1
-            new_string = f"{name}_{counter}"
+            new_string = f"{original_string}_{counter}"
         return new_string
     else:
         return original_string
@@ -63,9 +63,7 @@ def main():
     # Add tag meta and check if tag with given name already exists
     project_meta = sly.ProjectMeta.from_json(api.project.get_meta(project_id))
     tag_meta_names = [tag_m.name for tag_m in project_meta.tag_metas]
-    tag_name = "group_id"
-    if tag_name in tag_meta_names:
-        tag_name = get_free_tag_name("group_id", tag_name)
+    tag_name = get_free_tag_name("group_id", tag_meta_names)
 
     # Add and update tag meta
     tag_meta_group = sly.TagMeta(name=tag_name, value_type=sly.TagValueType.ANY_STRING)
