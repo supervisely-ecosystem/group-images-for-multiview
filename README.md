@@ -18,15 +18,19 @@
 
 # Overview
 
-The application splits dataset's images into groups, adds grouping tags and enables multiview. Size of groups is determined my the **Batch size** slider in the application window. Also, three grouping options are available: *Group by Batches*, *Group by Object Class* and *Group by Image Tags*.
+The application organizes images into groups, adds grouping tags, and activates grouping and multi-tag modes in the project settings. The size of the groups is determined by the **Batch size** slider in the application window, and three grouping options are available: **Group by Batches**, **Group by Object Class**, and **Group by Image Tags**.
 
-**Group by Batches**: splits the images into groups on a random basis. Affects every image.
+**Group by Batches**: Randomly divides the images into groups, affecting each image.
 
-**Group by Object Class**: splits the images into groups based on object's classes present on them. Does not affect images, with no objects on them.
+**Group by Object Class**: Categorizes images into groups based on the objects' classes present in them. It does not impact images with no objects.
 
-**Group by Image Tags**: splits the images into groups based on their tags. Does not affect images, which have no tags.
+**Group by Image Tags**: Organizes images into groups based on their tags. Images without tags remain unaffected.
 
-Before running the app, be aware that this app changes the project it is applied to. It is recommended to make a copy of the project if you are afraid that the changes will have a negative impact.
+Before runnning the app, be aware that it alters the applied project. All application actions can be manually reversed in the project settings, but it is advisable to create a project copy if you are concerned about impact this app may have on the project. 
+
+Additionally, you can enable synchronized panning and labeling for use with the multiview. This can be configured in the project settings under the visuals category:
+
+<img src="https://github.com/supervisely-ecosystem/group-images-for-multiview/assets/115161827/9e7ab2b3-fc2d-43f4-8bab-57112fc74eee" width = 50%>
 
 
 # How to Run
@@ -41,3 +45,8 @@ Before running the app, be aware that this app changes the project it is applied
 
 <img src="https://github.com/supervisely-ecosystem/group-images-for-multiview/assets/115161827/beea032a-3d84-4c35-83e3-707ce614dbcc">
 
+## Result
+
+Here is how the result looks like in the labeling toolbox:
+
+<img src="https://github.com/supervisely-ecosystem/group-images-for-multiview/assets/115161827/24e386f6-a805-4f38-b7e3-5fa78a2bd5fe">
