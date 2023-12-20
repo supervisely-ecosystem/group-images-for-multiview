@@ -6,7 +6,7 @@
     "icon": "https://github.com/supervisely-ecosystem/group-images-for-multiview/assets/115161827/6a28a2d6-8d62-46a4-9b64-1b09750d1296",
     "icon_cover": true,
     "poster": "https://github.com/supervisely-ecosystem/group-images-for-multiview/assets/115161827/34793345-0133-4d1e-b1fb-15de999c85f0",
-    "categories": ["images"],
+    "categories": ["images", "data operations"],
     "need_gpu": false,
     "community_agent": true,
     "docker_image": "supervisely/base-py-sdk:6.72.219",

@@ -18,15 +18,16 @@
 
 # Overview
 
-The application splits dataset's images into groups, adds grouping tags and enables multiview. Size of groups is determined my the **Batch size** slider in the application window. Also, three grouping options are available: *Group by Batches*, *Group by Image Tags* and *Group by Object Class*.
+The application splits dataset's images into groups, adds grouping tags and enables multiview. Size of groups is determined my the **Batch size** slider in the application window. Also, three grouping options are available: *Group by Batches*, *Group by Object Class* and *Group by Image Tags*.
 
 **Group by Batches**: splits the images into groups on a random basis. Affects every image.
 
-**Group by Image Tags**: splits the images into groups based on their tags. Does not affect images, which have no tags.
-
 **Group by Object Class**: splits the images into groups based on object's classes present on them. Does not affect images, with no objects on them.
 
+**Group by Image Tags**: splits the images into groups based on their tags. Does not affect images, which have no tags.
+
 Before running the app, be aware that this app changes the project it is applied to. It is recommended to make a copy of the project if you are afraid that the changes will have a negative impact.
+
 
 # How to Run
 
