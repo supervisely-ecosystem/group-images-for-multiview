@@ -16,5 +16,10 @@
     "task_location": "workspace_tasks",
     "context_menu": {
       "target": ["images_project", "images_dataset"]
-    }
+    },
+    "modal_template": "src/modal.html",
+    "modal_template_state": {
+      "selectOption": "by-batches",
+      "sliderValue": 5
+  }
   }

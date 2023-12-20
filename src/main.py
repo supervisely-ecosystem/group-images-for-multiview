@@ -21,16 +21,22 @@ def get_grouped_dict(anns, grouping_mode):
 
     def get_attribute(ann):
         if grouping_mode == "obj-class":
-            return ann.label.obj_class
+            return ann.labels, "obj_class.name"
         elif grouping_mode == "tags":
-            return ann.img_tags
+            return ann.img_tags, "name"
         else:
-            return None
+            return None, None
 
     for ann in anns:
-        attribute = get_attribute(ann)
+        attribute, attribute2 = get_attribute(ann)
         if attribute is not None:
-            grouped_dict[attribute.name].append(ann)
+            for x in attribute:
+                y = attribute2.split(".")
+                if len(y) > 1:
+                    key = getattr(getattr(x, y[0]), y[1])
+                else:
+                    key = getattr(x, attribute2)
+                grouped_dict[key].append(ann)
         else:
             grouped_dict["group"].append(ann)
 
@@ -52,7 +58,7 @@ def main():
 
     # Add tag meta
     meta = sly.ProjectMeta.from_json(api.project.get_meta(project_id))
-    tag_meta = meta.get_tag_meta(tag_name)  # todo address
+    tag_meta = meta.get_tag_meta(tag_name)
     if tag_meta is None:
         meta = meta.add_tag_meta(tag_meta_group)
         api.project.update_meta(project_id, meta)
@@ -89,7 +95,7 @@ def main():
                 ann_list.extend([ann.add_tag(tag) for ann in v])
 
             # Upload the updated annotations
-            api.annotation.upload_anns(ids, ann_list)
+            api.annotation.upload_anns(ids, ann_list)  # todo annlist == 54??
 
 
 if __name__ == "__main__":
