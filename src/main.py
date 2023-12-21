@@ -13,14 +13,17 @@ if sly.is_development:
 grouping_mode = os.environ["modal.state.selectOption"]
 batch_size = int(os.environ["modal.state.sliderValue"])
 
+grouped_dict = defaultdict(list)
 
-def get_grouped_dict(
+
+def add_batch_to_grouped_dict(
     image_ids: List[int], anns: List[sly.Annotation]
-) -> Dict[str, List[Tuple[int, sly.Annotation]]]:
+) -> None:
     if grouping_mode == "by-batches":
-        return {"group": list(zip(image_ids, anns))}
-    grouped_dict = defaultdict(list)
-
+        grouped_dict["group"] = list(zip(image_ids, anns))
+        return
+        # return {"group": list(zip(image_ids, anns))}
+    # grouped_dict = defaultdict(list)
     for image_id, ann in zip(image_ids, anns):
         entry = (image_id, ann)
         if grouping_mode == "obj-class":
@@ -33,6 +36,12 @@ def get_grouped_dict(
                     grouped_dict[tag.name].append(entry)
     return grouped_dict
 
+def check_and_pop():
+    for group_name in list(grouped_dict.keys()):
+        while len(grouped_dict[key]) > batch_size:
+            batch = grouped_dict[key][:batch_size]
+            map[key] = grouped_dict[key][batch_size:]
+            yield (group_name, batch)
 
 def get_free_tag_name(original_string, list):
     if original_string in list:
@@ -44,6 +53,9 @@ def get_free_tag_name(original_string, list):
         return new_string
     else:
         return original_string
+
+def process_batch(batch):
+    pass
 
 
 @sly.handle_exceptions
@@ -79,16 +91,34 @@ def main():
 
     # Get list of datasets and iterate over it
     for dataset in datasets:
+        batch_counter = 0
         # Get list of all the images and their ids in a dataset
         images = api.image.get_list(dataset.id)
         image_ids = [img.id for img in images]
         group_index = 0
         # Download all image annotations
-        anns_json = api.annotation.download_json_batch(dataset_id=dataset.id, image_ids=image_ids)
-        anns = [sly.Annotation.from_json(ann_json, project_meta) for ann_json in anns_json]
-        sly.logger.info(f"Annotations of {len(anns)} images are successfully downloaded")
-        # Generate and iterate over map, and add a tag to each image with their group id
-        map = get_grouped_dict(image_ids, anns)
+        for batched_image_ids in sly.batched(image_ids, batch_size=200):
+            anns_json = api.annotation.download_json_batch(dataset_id=dataset.id, image_ids=batched_image_ids)
+            anns = [sly.Annotation.from_json(ann_json, project_meta) for ann_json in anns_json]
+            sly.logger.info(f"Annotations of {len(anns)} images are successfully downloaded")
+            # Generate and iterate over map, and add a tag to each image with their group id
+            add_batch_to_grouped_dict(image_ids, anns)
+            # map = get_grouped_dict(image_ids, anns)
+            anns_for_upload = ...
+            for batch in check_and_pop():
+                group_name, group_data = batch # (str, List[Tuple[int, sly.Ann]])
+                (cucumber, [1, 2, 3])
+                (cucumber, [4, 5, 6])
+                batch_counter += 1
+                pass
+           
+            # Check if there are any object in global dict and upload unfinished batches
+            for unfinished_batch in grouped_dict.items():
+                group_name, group_data = batch
+                process_batch()
+                
+            # Upload annotations
+        
         for group_name, group_data in map.items():
             for i, (image_id, ann) in enumerate(group_data):
                 if i % batch_size == 0:
