@@ -8,7 +8,7 @@
   <a href="#How-To-Run">How To Run</a> 
 </p>
 
-[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](../../../../supervisely-ecosystem/group-images-for-multiview)
+[![](https://img.shields.io/badge/supervisely-ecosystem-brightgreen)](https://ecosystem.supervise.ly/apps/supervisely-ecosystem/group-images-for-multiview)
 [![](https://img.shields.io/badge/slack-chat-green.svg?logo=slack)](https://supervise.ly/slack)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/supervisely-ecosystem/group-images-for-multiview)
 [![views](https://app.supervise.ly/img/badges/views/supervisely-ecosystem/group-images-for-multiview)](https://supervise.ly)
