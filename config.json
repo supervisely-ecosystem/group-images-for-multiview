@@ -9,7 +9,7 @@
     "categories": ["images", "data operations"],
     "need_gpu": false,
     "community_agent": true,
-    "docker_image": "supervisely/base-py-sdk:6.72.219",
+    "docker_image": "supervisely/base-py-sdk:6.73.564",
     "entrypoint": "python src/main.py",
     "port": 8000,
     "headless": true,
